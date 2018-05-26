@@ -96,6 +96,7 @@ def quiz_function(model, answers):
     if num_tries == 0:
         print "You ran out of tries. Game Over"
     else:
+        print new_paragraph
         print "Congratulations, you WON!!"
 
 

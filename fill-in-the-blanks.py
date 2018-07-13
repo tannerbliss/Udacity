@@ -55,9 +55,9 @@ category, Model ___1___ achieves ___2___ miles of range while starting
 at only $___3___ before incentives. The Model ___1___ is the best 
 sedan in the entire ___4___'''
 
-s_answers_list = ["s", 'tesla', "60", 'world']
-x_answers = ["x", "295", "60", 'world']
-e_answers = ["e", "220", "35000", 'world']
+s_answers_list_that_uses_its_values_to_fill_in_the_blanks = ["s", 'tesla', "60", 'world']
+x_answers_list_that_uses_its_values_to_fill_in_the_blanks = ["x", "295", "60", 'world']
+e_answers_list_that_uses_its_values_to_fill_in_the_blanks = ["e", "220", "35000", 'world']
 user_input = input("What car would you like to drive? Model X, S, or E? ")
 
 # this is the start of the game and when the game begins this is the first operation
@@ -66,6 +66,11 @@ print(user_input)
 
 # this is the function that does the parsing of the user answer and replaces the text of the blank with the actual answer
 def play_game(ml_string, parts_of_speech, replaced_text):
+    """
+    :param ml_string: this is the check space as it moves through the paragraph
+    :param parts_of_speech: the value that was provided from the user
+    :param replaced_text: once it is correct, this is what text is put into the return to the user
+    """
     replaced = []
     ml_string = ml_string.split(' ')
     for parse in ml_string:
@@ -82,9 +87,7 @@ def quiz_function(model, answers):
     number_of_blanks = 4
     new_paragraph = model
     while num_tries != 0 and current_blank < number_of_blanks:  # as long as the 5 tries have not run out, this code is run to prompt the user for the answer and the answer is checked to see if it is right
-        print(new_paragraph)
-        print("You have " + str(num_tries) + " tries on each blank.")
-        print("Fill in the blanks!")
+        print(new_paragraph) "\n" "You have  "+ str(num_tries) +" tries on each blank." "\n" "Fill in the blanks!"
         answer_input = input("What is the answer for blank number " + str(current_blank + 1) + "?")
         if answer_input.lower() == answers[current_blank]:
             print("That's right!")
@@ -96,13 +99,11 @@ def quiz_function(model, answers):
     if num_tries == 0:
         print("You ran out of tries. Game Over")
     else:
-        print(new_paragraph)
-        print("Congratulations, you WON!!")
+        print(new_paragraph) "\n" "Congratulations, you WON!!"
 
-
-if user_input in 'Ss':
-    quiz_function(s_model, s_answers)
-elif user_input in 'Xx':
-    quiz_function(x_model, x_answers)
-elif user_input in 'Ee':
-    quiz_function(e_model, e_answers)
+    if user_input in 'Ss':
+        quiz_function(s_model, s_answers_list_that_uses_its_values_to_fill_in_the_blanks)
+    elif user_input in 'Xx':
+        quiz_function(x_model, x_answers_list_that_uses_its_values_to_fill_in_the_blanks)
+    elif user_input in 'Ee':
+        quiz_function(e_model, e_answers_list_that_uses_its_values_to_fill_in_the_blanks)

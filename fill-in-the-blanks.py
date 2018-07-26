@@ -79,27 +79,33 @@ def play_game(ml_string, parts_of_speech, replaced_text):
     replaced = " ".join(replaced)
     return replaced
 
+#this is a breakout function to shorten the main operation, this prints the right answer and changes the number of tries if it's wrong
+def right_or_wrong():
+    if answer_input.lower() == answers[current_blank]:
+        print("That's right!")
+        new_paragraph = play_game(new_paragraph, "___" + str(current_blank + 1) + "___", answer_input)
+        num_tries = 5
+        current_blank += 1
+    else:  # if all 5 tries are spent on the question the game is over and the user has to start all over again
+        num_tries -= 1
 
-# this first section is for the S question
+# this is the core operating function
 def quiz_function(model, answers):
     num_tries = 5
     current_blank = 0
     number_of_blanks = 4
     new_paragraph = model
     while num_tries != 0 and current_blank < number_of_blanks:  # as long as the 5 tries have not run out, this code is run to prompt the user for the answer and the answer is checked to see if it is right
-        print(new_paragraph) "\n" "You have  "+ str(num_tries) +" tries on each blank." "\n" "Fill in the blanks!"
+        print(new_paragraph)
+        print ("You have  "+ str(num_tries) +" tries on each blank.")
+        print ("Fill in the blanks!")
         answer_input = input("What is the answer for blank number " + str(current_blank + 1) + "?")
-        if answer_input.lower() == answers[current_blank]:
-            print("That's right!")
-            new_paragraph = play_game(new_paragraph, "___" + str(current_blank + 1) + "___", answer_input)
-            num_tries = 5
-            current_blank += 1
-        else:  # if all 5 tries are spent on the question the game is over and the user has to start all over again
-            num_tries -= 1
+        right_or_wrong()
     if num_tries == 0:
         print("You ran out of tries. Game Over")
-    else:
-        print(new_paragraph) "\n" "Congratulations, you WON!!"
+    else:s_answers_list_that_uses_its_values_to_fill_in_the_blanks
+        print(new_paragraph)
+        print ("Congratulations, you WON!!")
 
     if user_input in 'Ss':
         quiz_function(s_model, s_answers_list_that_uses_its_values_to_fill_in_the_blanks)
